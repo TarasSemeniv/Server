@@ -5,6 +5,7 @@ import { getAuthUser, login, register, updateUser } from './controllers/UserCont
 import auth from './middleware/auth.mjs';
 import requireRole from "./middleware/requireRole.mjs"
 import cors from 'cors';
+import { addComment, getCommentsByArticle } from './controllers/CommentContoller.mjs';
 
 
 const app = express()
@@ -36,6 +37,9 @@ app.post('/login', login)
 app.post('/authUser', auth, getAuthUser)
 
 app.put('/users/:id', auth, updateUser)
+
+app.get('/comments/:articleId', getCommentsByArticle);
+app.post('/comments/:articleId', auth, addComment);
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
